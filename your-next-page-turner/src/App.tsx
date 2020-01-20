@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./css/App.scss";
 import Header from "./components/Header";
 import BookContainer from "./containers/BookContainer";
+import { BookData } from "./typescript/types";
 
 const App: React.FC = () => {
-  const [books, setBooks] = useState<{ titles: String }[]>([]);
+  const [books, setBooks] = useState<BookData[]>([]);
 
   useEffect(() => {
     _fetchBooks();
