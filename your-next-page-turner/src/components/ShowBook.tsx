@@ -9,10 +9,12 @@ export default function ShowBook(props: Props): ReactElement {
   const { titles, authors, description } = props.book;
   return (
     <aside>
-      <div className="title">{titles}</div>
-      <div className="border"></div>
-      <div className="author">{authors}</div>
-      <div className="description">{description}</div>
+      <div className="top">
+        <div className="title">{titles}</div>
+        <div className="border"></div>
+        <div className="author">{authors}</div>
+        <div className="description">{description}</div>
+      </div>
 
       <button className="rec-button">mor like dis pls</button>
     </aside>

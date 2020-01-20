@@ -4,8 +4,14 @@ aside {
   border-right: 1px solid #bdbdbd;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
+  justify-content: space-between;
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    height: 100%;
+  }
   .title {
     text-align: center;
     font-size: 2rem;
@@ -17,7 +23,7 @@ aside {
     font-size: 1.5rem;
   }
   .border {
-    margin: 1rem;
+    margin: 0.3rem;
     width: 12rem;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
@@ -25,6 +31,7 @@ aside {
   }
   .description {
     margin-top: 1rem;
+    font-size: 1.15rem;
   }
   .rec-button {
     width: 100%;
