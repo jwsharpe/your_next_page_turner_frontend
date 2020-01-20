@@ -9,7 +9,6 @@ header {
 
 .search {
   height: 5rem;
-  background: pink;
 }
 
 .content-grid {
@@ -22,11 +21,13 @@ aside {
 }
 
 ul {
-  height: 100vh;
-  overflow-y: scroll;
-
   list-style-type: none;
   margin-block-start: 0;
   margin-block-end: 0;
   padding-inline-start: 0;
+}
+
+.book-container {
+  height: 100vh;
+  overflow-y: scroll;
 }

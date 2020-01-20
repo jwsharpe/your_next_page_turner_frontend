@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./css/App.scss";
 import Header from "./components/Header";
 import BookContainer from "./containers/BookContainer";
+import SearchBar from "./components/SearchBar";
 import { BookData } from "./typescript/types";
 
 const App: React.FC = () => {
@@ -27,7 +28,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
-      <div className="search">search bar</div>
+
       <div className="content-grid">
         <aside>content bar</aside>
         <BookContainer books={books} />

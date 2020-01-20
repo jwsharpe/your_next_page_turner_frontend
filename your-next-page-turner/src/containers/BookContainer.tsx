@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import "../css/Book.scss";
 import Book from "../components/Book";
 import { BookData } from "../typescript/types";
-
+import SearchBar from "../components/SearchBar";
 interface Props {
   books: BookData[];
 }
@@ -13,5 +13,10 @@ export default function BookContainer(props: Props): ReactElement {
       return <Book key={index} book={book} />;
     });
   };
-  return <ul>{renderBooks()}</ul>;
+  return (
+    <div className="book-container">
+      <SearchBar />
+      <ul>{renderBooks()}</ul>
+    </div>
+  );
 }
