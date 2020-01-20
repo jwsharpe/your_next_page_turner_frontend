@@ -4,6 +4,7 @@ import Book from "../components/Book";
 import { BookData } from "../typescript/types";
 import { useDebounce } from "../helper/importedHooks";
 import SearchBar from "../components/SearchBar";
+
 interface Props {
   books: BookData[];
   showBook: number;

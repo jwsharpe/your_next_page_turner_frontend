@@ -8,7 +8,6 @@ interface Props {
 
 export default function SearchBar(props: Props): ReactElement {
   const _changeHandler = (e: any) => props.setQuery(e.target.value);
-
   return (
     <div className="search">
       <div className="container">
