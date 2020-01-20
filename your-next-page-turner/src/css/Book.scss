@@ -45,3 +45,14 @@ ul {
   font-size: 1rem;
   background: gray;
 }
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+
+  .container {
+    width: 50%;
+  }
+}

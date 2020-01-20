@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import "../css/Book.scss";
 import Book from "../components/Book";
 import { BookData } from "../typescript/types";
@@ -8,6 +8,8 @@ interface Props {
 }
 
 export default function BookContainer(props: Props): ReactElement {
+  const [query, setQuery] = useState<string>("");
+
   const renderBooks = () => {
     return props.books.map((book, index) => {
       return <Book key={index} book={book} />;
@@ -15,7 +17,7 @@ export default function BookContainer(props: Props): ReactElement {
   };
   return (
     <div className="book-container">
-      <SearchBar />
+      <SearchBar query={query} setQuery={setQuery} />
       <ul>{renderBooks()}</ul>
     </div>
   );

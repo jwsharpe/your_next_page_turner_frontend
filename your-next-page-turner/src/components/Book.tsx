@@ -6,19 +6,24 @@ interface Props {
 }
 
 export default function Book(props: Props): ReactElement {
-  const coverExists = !!props.book.img;
-
+  const { img, authors } = props.book;
+  let titles = props.book.titles;
+  const coverExists = !!img;
+  if (titles.length > 70) {
+    titles = titles.slice(0, 70);
+    titles += "...";
+  }
   return (
     <li className="book">
       <div className="img-container">
         {coverExists ? (
-          <img alt="" src={props.book.img} />
+          <img alt="" src={img} />
         ) : (
           <div className="missing-book">missing :(</div>
         )}
       </div>
-      <div className="title"> {props.book.titles}</div>
-      <div className="author"> {props.book.authors}</div>
+      <div className="title"> {titles}</div>
+      <div className="author"> {authors}</div>
     </li>
   );
 }

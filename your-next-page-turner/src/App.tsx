@@ -2,25 +2,19 @@ import React, { useState, useEffect } from "react";
 import "./css/App.scss";
 import Header from "./components/Header";
 import BookContainer from "./containers/BookContainer";
-import SearchBar from "./components/SearchBar";
 import { BookData } from "./typescript/types";
 
 const App: React.FC = () => {
   const [books, setBooks] = useState<BookData[]>([]);
+  const [showBook, setShowBook] = useState<number>(-1);
 
   useEffect(() => {
     _fetchBooks();
-  }, [0]);
+  }, [books.length]);
 
   const _fetchBooks = async () => {
     const res = await fetch("http://localhost:5000/books");
     const books = await res.json();
-    var i;
-    for (i = 0; i < books.length; i++) {
-      if (books[i].titles.length > 120) {
-        books[i].titles.replace(/\(([^)]\))/, "");
-      }
-    }
     console.log(books);
     setBooks(books);
   };
