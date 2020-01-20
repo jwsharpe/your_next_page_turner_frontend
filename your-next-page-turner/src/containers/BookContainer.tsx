@@ -1,11 +1,15 @@
 import React, { ReactElement } from "react";
 
-interface Props {}
+interface Props {
+  books: { titles: String }[];
+}
 
-export default function BookContainer({}: Props): ReactElement {
-  return (
-    <ul>
-      <li>book1</li>
-    </ul>
-  );
+export default function BookContainer(props: Props): ReactElement {
+  const renderBooks = () => {
+    return props.books.map((book, index) => {
+      const { titles } = book;
+      return <li key={index}>{titles}</li>;
+    });
+  };
+  return <ul>{renderBooks()}</ul>;
 }
