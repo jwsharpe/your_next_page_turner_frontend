@@ -1,0 +1,33 @@
+body {
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  height: 5rem;
+}
+
+.search {
+  height: 5rem;
+  background: pink;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 3fr 5fr;
+}
+
+aside {
+  background: lightblue;
+}
+
+ul {
+  display: flex;
+  height: 100vh;
+  overflow-y: scroll;
+
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+}
