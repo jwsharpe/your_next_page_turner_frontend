@@ -3,10 +3,12 @@ import "./css/App.scss";
 import Header from "./components/Header";
 import BookContainer from "./containers/BookContainer";
 import { BookData } from "./typescript/types";
+import ShowBook from "./components/ShowBook";
 
 const App: React.FC = () => {
   const [books, setBooks] = useState<BookData[]>([]);
-  const [showBook, setShowBook] = useState<number>(-1);
+  const [showBook, setShowBook] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     _fetchBooks();
@@ -17,6 +19,7 @@ const App: React.FC = () => {
     const books = await res.json();
     console.log(books);
     setBooks(books);
+    setIsLoading(false);
   };
 
   return (
@@ -24,7 +27,7 @@ const App: React.FC = () => {
       <Header />
 
       <div className="content-grid">
-        <aside>content bar</aside>
+        {isLoading ? <div>loading</div> : <ShowBook book={books[showBook]} />}
         <BookContainer books={books} />
       </div>
     </div>
