@@ -1,5 +1,6 @@
 export type BookData = {
-  titles: String;
-  image: String;
-  description: String;
+  titles: string;
+  img: string;
+  description: string;
+  authors: string;
 };

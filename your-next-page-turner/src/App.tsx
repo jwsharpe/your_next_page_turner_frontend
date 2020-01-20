@@ -14,6 +14,12 @@ const App: React.FC = () => {
   const _fetchBooks = async () => {
     const res = await fetch("http://localhost:5000/books");
     const books = await res.json();
+    var i;
+    for (i = 0; i < books.length; i++) {
+      if (books[i].titles.length > 120) {
+        books[i].titles.replace(/\(([^)]\))/, "");
+      }
+    }
     console.log(books);
     setBooks(books);
   };

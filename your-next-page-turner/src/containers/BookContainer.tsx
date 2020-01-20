@@ -10,7 +10,7 @@ interface Props {
 export default function BookContainer(props: Props): ReactElement {
   const renderBooks = () => {
     return props.books.map((book, index) => {
-      return <Book index={index} book={book} />;
+      return <Book key={index} book={book} />;
     });
   };
   return <ul>{renderBooks()}</ul>;

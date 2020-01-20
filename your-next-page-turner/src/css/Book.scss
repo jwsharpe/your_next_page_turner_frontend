@@ -4,7 +4,29 @@ ul {
   grid-template-columns: repeat(auto-fill, 15rem);
   justify-content: center;
 }
-li {
+.book {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
   border: 1px solid black;
   height: 20rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  .img-container {
+    height: 220px;
+    margin-bottom: 8px;
+    img {
+      height: 100%;
+      max-width: 100%;
+    }
+  }
+  .title {
+    font-weight: bold;
+  }
+  .author {
+    color: #757575;
+  }
 }
