@@ -7,6 +7,19 @@ ul {
   grid-template-columns: repeat(auto-fill, 15rem);
   justify-content: center;
 }
+
+.book:hover {
+  border: 1px solid #ffc107;
+  outline: 4px solid #ffc107;
+  border-radius: 0;
+}
+
+.book:active {
+  border: 1px solid #ffa000;
+  outline: 4px solid #ffa000;
+  border-radius: 0;
+}
+
 .book {
   overflow: hidden;
   display: flex;
@@ -37,6 +50,12 @@ ul {
     margin: 2px;
     color: #757575;
   }
+}
+
+.book-active {
+  border: 1px solid #ffa000;
+  outline: 2px solid #ffa000;
+  border-radius: 0;
 }
 
 .missing-book {

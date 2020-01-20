@@ -6,17 +6,26 @@ interface Props {
 }
 
 export default function ShowBook(props: Props): ReactElement {
-  const { titles, authors, description } = props.book;
   return (
-    <aside>
-      <div className="top">
-        <div className="title">{titles}</div>
-        <div className="border"></div>
-        <div className="author">{authors}</div>
-        <div className="description">{description}</div>
-      </div>
+    <div>
+      {props.book ? (
+        <aside>
+          <div className="top">
+            <div className="title">{props.book.titles}</div>
+            <div className="border"></div>
+            <div className="author">{props.book.authors}</div>
+            <div className="description">{props.book.description}</div>
+          </div>
 
-      <button className="rec-button">mor like dis pls</button>
-    </aside>
+          <button className="rec-button">mor like dis pls</button>
+        </aside>
+      ) : (
+        <aside>
+          <div className="top">
+            <div className="title">Please Select a Book!</div>
+          </div>
+        </aside>
+      )}
+    </div>
   );
 }

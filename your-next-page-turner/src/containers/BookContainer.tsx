@@ -6,6 +6,8 @@ import { useDebounce } from "../helper/importedHooks";
 import SearchBar from "../components/SearchBar";
 interface Props {
   books: BookData[];
+  showBook: number;
+  setShowBook: any;
 }
 
 export default function BookContainer(props: Props): ReactElement {
@@ -22,7 +24,14 @@ export default function BookContainer(props: Props): ReactElement {
     }
 
     return filteredBooks.map((book, index) => {
-      return <Book key={index} book={book} />;
+      return (
+        <Book
+          setShowBook={props.setShowBook}
+          showBook={props.showBook}
+          key={index}
+          book={book}
+        />
+      );
     });
   };
 

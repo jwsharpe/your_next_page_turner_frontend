@@ -3,4 +3,5 @@ export type BookData = {
   img: string;
   description: string;
   authors: string;
+  id: number;
 };

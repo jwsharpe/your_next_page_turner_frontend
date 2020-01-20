@@ -7,7 +7,7 @@ import ShowBook from "./components/ShowBook";
 
 const App: React.FC = () => {
   const [books, setBooks] = useState<BookData[]>([]);
-  const [showBook, setShowBook] = useState<number>(0);
+  const [showBook, setShowBook] = useState<number>(-1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -17,9 +17,12 @@ const App: React.FC = () => {
   const _fetchBooks = async () => {
     const res = await fetch("http://localhost:5000/books");
     const books = await res.json();
-    console.log(books);
     setBooks(books);
     setIsLoading(false);
+  };
+
+  const findShowBookIndex = (id: number) => {
+    return books.findIndex(book => book.id === id);
   };
 
   return (
@@ -27,8 +30,16 @@ const App: React.FC = () => {
       <Header />
 
       <div className="content-grid">
-        {isLoading ? <div>loading</div> : <ShowBook book={books[showBook]} />}
-        <BookContainer books={books} />
+        {isLoading ? (
+          <div>loading</div>
+        ) : (
+          <ShowBook book={books[findShowBookIndex(showBook)]} />
+        )}
+        <BookContainer
+          books={books}
+          showBook={showBook}
+          setShowBook={setShowBook}
+        />
       </div>
     </div>
   );
