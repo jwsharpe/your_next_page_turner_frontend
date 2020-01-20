@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from "react";
 import "../css/Book.scss";
 import Book from "../components/Book";
 import { BookData } from "../typescript/types";
+import { useDebounce } from "../helper/importedHooks";
 import SearchBar from "../components/SearchBar";
 interface Props {
   books: BookData[];
@@ -9,13 +10,14 @@ interface Props {
 
 export default function BookContainer(props: Props): ReactElement {
   const [query, setQuery] = useState<string>("");
+  const debouncedQuery = useDebounce(query, 250);
 
   const filterBooks = () => {
     const { books } = props;
     let filteredBooks = [...books];
-    if (query.length) {
+    if (debouncedQuery.length) {
       filteredBooks = books.filter(book =>
-        ("" + book.titles).toLowerCase().includes(query.toLowerCase())
+        book.titles.toLowerCase().includes(debouncedQuery.toLowerCase())
       );
     }
 
