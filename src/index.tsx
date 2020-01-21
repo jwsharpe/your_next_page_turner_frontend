@@ -5,6 +5,8 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import About from "./About";
 
 const theme = createMuiTheme({
   palette: {
@@ -17,7 +19,17 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <App />
+    <Router>
+      <Switch>
+        <Route path="/about">
+          <About />
+        </Route>
+
+        <Route path="/">
+          <App />
+        </Route>
+      </Switch>
+    </Router>
   </MuiThemeProvider>,
   document.getElementById("root")
 );

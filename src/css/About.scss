@@ -1,0 +1,22 @@
+.about {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.about-animate {
+  position: relative;
+  display: block;
+  animation: 3s infinite linear spin;
+  z-index: -1;
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
