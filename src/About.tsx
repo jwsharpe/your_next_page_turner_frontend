@@ -14,7 +14,7 @@ export default function About({}: Props): ReactElement {
           i made the clicky buttons and the website
         </a>
         <a href="https://github.com/rebecca-hh-rosen">
-          rebecca got the books and made the COOL rec system
+          rebecca scraped the books and made the COOL rec system
         </a>
         <img
           className="about-animate"

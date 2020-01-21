@@ -8,17 +8,28 @@ import ShowBook from "./components/ShowBook";
 const App: React.FC = () => {
   const [books, setBooks] = useState<BookData[]>([]);
   const [showBook, setShowBook] = useState<number>(-1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [pageNumber, setPageNumber] = useState<number>(0);
+  const [isAppLoading, setIsAppLoading] = useState<boolean>(true);
+  const [isPageLoading, setIsPageLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    _fetchBooks();
-  }, [books.length]);
+    _fetchPage(pageNumber);
+  }, []);
 
-  const _fetchBooks = async () => {
-    const res = await fetch("http://localhost:5000/books");
-    const books = await res.json();
-    setBooks(books);
-    setIsLoading(false);
+  const _fetchNextPage = () => {
+    setIsPageLoading(true);
+    _fetchPage(pageNumber);
+  };
+
+  const _fetchPage = async (page: number) => {
+    console.log("fetching, ", page);
+    const res = await fetch("http://localhost:5000/books/" + page);
+    const newBooks = await res.json();
+    setBooks([...books, ...newBooks]);
+    setPageNumber(pageNumber + 1);
+
+    if (setIsPageLoading) setTimeout(() => setIsPageLoading(false), 500);
+    if (isAppLoading) setIsAppLoading(false);
   };
 
   const findShowBookIndex = (id: number) => {
@@ -30,7 +41,7 @@ const App: React.FC = () => {
       <Header />
 
       <div className="content-grid">
-        {isLoading ? (
+        {isAppLoading ? (
           <div>loading</div>
         ) : (
           <ShowBook book={books[findShowBookIndex(showBook)]} />
@@ -39,6 +50,8 @@ const App: React.FC = () => {
           books={books}
           showBook={showBook}
           setShowBook={setShowBook}
+          isPageLoading={isPageLoading}
+          fetchNextPage={_fetchNextPage}
         />
       </div>
     </div>

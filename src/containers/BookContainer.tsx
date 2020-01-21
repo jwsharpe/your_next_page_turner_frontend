@@ -9,11 +9,21 @@ interface Props {
   books: BookData[];
   showBook: number;
   setShowBook: any;
+  isPageLoading: any;
+  fetchNextPage: any;
 }
 
 export default function BookContainer(props: Props): ReactElement {
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce(query, 250);
+
+  const _handleScroll = (event: any) => {
+    event.persist();
+    const { scrollTop, scrollHeight } = event.target;
+    if (scrollHeight - scrollTop < scrollHeight / 2 && !props.isPageLoading) {
+      props.fetchNextPage();
+    }
+  };
 
   const filterBooks = () => {
     const { books } = props;
@@ -37,7 +47,7 @@ export default function BookContainer(props: Props): ReactElement {
   };
 
   return (
-    <div className="book-container">
+    <div onScroll={_handleScroll} className="book-container">
       <SearchBar query={query} setQuery={setQuery} />
       <ul>{filterBooks()}</ul>
     </div>
