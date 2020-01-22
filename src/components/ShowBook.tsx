@@ -3,6 +3,7 @@ import "../css/Aside.scss";
 import { BookData } from "../typescript/types";
 interface Props {
   book: BookData;
+  fetchRecsByTitle: any;
 }
 
 export default function ShowBook(props: Props): ReactElement {
@@ -17,7 +18,14 @@ export default function ShowBook(props: Props): ReactElement {
             <div className="description">{props.book.description}</div>
           </div>
 
-          <button className="rec-button">mor like dis pls</button>
+          <button
+            onClick={() => {
+              props.fetchRecsByTitle(props.book);
+            }}
+            className="rec-button"
+          >
+            mor like dis pls
+          </button>
         </aside>
       ) : (
         <aside>
