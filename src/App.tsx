@@ -5,6 +5,10 @@ import BookContainer from "./containers/BookContainer";
 import { BookData } from "./typescript/types";
 import ShowBook from "./components/ShowBook";
 
+import { useDebounce } from "./helper/importedHooks";
+import SearchBar from "./components/SearchBar";
+import RecTitle from "./components/RecTitle";
+
 const App: React.FC = () => {
   const [books, setBooks] = useState<BookData[]>([]);
   const [recTitle, setRecTitle] = useState<string>("");
@@ -13,9 +17,18 @@ const App: React.FC = () => {
   const [isAppLoading, setIsAppLoading] = useState<boolean>(true);
   const [isPageLoading, setIsPageLoading] = useState<boolean>(true);
 
+  const [query, setQuery] = useState<string>("");
+  const debouncedQuery = useDebounce(query, 250);
+
   useEffect(() => {
-    _fetchPage(pageNumber);
-  }, []);
+    if (isAppLoading || debouncedQuery.length === 0) {
+      setIsAppLoading(false);
+      _fetchPage(0);
+    }
+    if (query.length) {
+      _fetchSearchQuery(debouncedQuery);
+    }
+  }, [debouncedQuery.length]);
 
   const _fetchRecsByTitle = async (book: BookData) => {
     setPageNumber(-1);
@@ -39,6 +52,24 @@ const App: React.FC = () => {
     setBooks([book, ...books]);
   };
 
+  const _fetchSearchQuery = async (query: string) => {
+    // console.log(query);
+    const mainBody = {
+      query: query
+    };
+    const content = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(mainBody)
+    };
+    const res = await fetch("http://localhost:5000/query", content);
+    const books = await res.json();
+    setBooks(books);
+  };
+
   const _clearRecs = async () => {
     setBooks([]);
     setShowBook(0);
@@ -49,7 +80,6 @@ const App: React.FC = () => {
     setPageNumber(pageNumber + 1);
 
     if (setIsPageLoading) setTimeout(() => setIsPageLoading(false), 500);
-    if (isAppLoading) setIsAppLoading(false);
   };
 
   const _fetchNextPage = () => {
@@ -64,7 +94,19 @@ const App: React.FC = () => {
     setPageNumber(pageNumber + 1);
 
     if (setIsPageLoading) setTimeout(() => setIsPageLoading(false), 500);
-    if (isAppLoading) setIsAppLoading(false);
+  };
+
+  const _handleScroll = (event: any) => {
+    event.persist();
+    const { scrollTop, scrollHeight } = event.target;
+    if (
+      scrollHeight - scrollTop < scrollHeight / 2 &&
+      !isPageLoading &&
+      pageNumber !== -1 &&
+      !query.length
+    ) {
+      _fetchNextPage();
+    }
   };
 
   const findShowBookIndex = (id: number) => {
@@ -76,24 +118,24 @@ const App: React.FC = () => {
       <Header />
 
       <div className="content-grid">
-        {isAppLoading ? (
-          <div>loading</div>
-        ) : (
-          <ShowBook
-            fetchRecsByTitle={_fetchRecsByTitle}
-            book={books[findShowBookIndex(showBook)]}
-          />
-        )}
-        <BookContainer
-          books={books}
-          recTitle={recTitle}
-          showBook={showBook}
-          setShowBook={setShowBook}
-          clearRecs={_clearRecs}
-          pageNumber={pageNumber}
-          isPageLoading={isPageLoading}
-          fetchNextPage={_fetchNextPage}
+        <ShowBook
+          fetchRecsByTitle={_fetchRecsByTitle}
+          book={books[findShowBookIndex(showBook)]}
         />
+
+        <div onScroll={_handleScroll} className="content-container">
+          {pageNumber !== -1 ? (
+            <SearchBar query={query} setQuery={setQuery} />
+          ) : (
+            <RecTitle recTitle={recTitle} clearRecs={_clearRecs} />
+          )}
+
+          <BookContainer
+            books={books}
+            showBook={showBook}
+            setShowBook={setShowBook}
+          />
+        </div>
       </div>
     </div>
   );
