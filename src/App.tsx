@@ -18,15 +18,18 @@ const App: React.FC = () => {
   const [isPageLoading, setIsPageLoading] = useState<boolean>(true);
 
   const [query, setQuery] = useState<string>("");
-  const debouncedQuery = useDebounce(query, 250);
+  const debouncedQuery = useDebounce(query, 200);
 
   useEffect(() => {
-    if (isAppLoading || debouncedQuery.length === 0) {
+    if (isAppLoading) {
       setIsAppLoading(false);
-      _fetchPage(0);
+      _fetchFirstPage();
     }
-    if (query.length) {
+    if (query.length >= 2) {
       _fetchSearchQuery(debouncedQuery);
+    }
+    if (query.length === 0) {
+      _clearSearch();
     }
   }, [debouncedQuery.length]);
 
@@ -53,7 +56,6 @@ const App: React.FC = () => {
   };
 
   const _fetchSearchQuery = async (query: string) => {
-    // console.log(query);
     const mainBody = {
       query: query
     };
@@ -70,29 +72,32 @@ const App: React.FC = () => {
     setBooks(books);
   };
 
-  const _clearRecs = async () => {
-    setBooks([]);
-    setShowBook(0);
-    setPageNumber(0);
-    const res = await fetch("http://localhost:5000/books/0");
-    const newBooks = await res.json();
-    setBooks(newBooks);
-    setPageNumber(pageNumber + 1);
+  const _clearRecs = () => {
+    _fetchFirstPage();
+  };
 
-    if (setIsPageLoading) setTimeout(() => setIsPageLoading(false), 500);
+  const _clearSearch = () => {
+    _fetchFirstPage();
+  };
+
+  const _fetchFirstPage = () => {
+    setIsPageLoading(true);
+    setBooks([]);
+    setPageNumber(0);
+    _fetchPage(0);
   };
 
   const _fetchNextPage = () => {
     setIsPageLoading(true);
-    _fetchPage(pageNumber);
+    const nextPage = pageNumber + 1;
+    setPageNumber(nextPage);
+    _fetchPage(nextPage);
   };
 
   const _fetchPage = async (page: number) => {
     const res = await fetch("http://localhost:5000/books/" + page);
     const newBooks = await res.json();
     setBooks([...books, ...newBooks]);
-    setPageNumber(pageNumber + 1);
-
     if (setIsPageLoading) setTimeout(() => setIsPageLoading(false), 500);
   };
 
