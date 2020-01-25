@@ -9,6 +9,8 @@ import { useDebounce } from "./helper/importedHooks";
 import SearchBar from "./components/SearchBar";
 import RecTitle from "./components/RecTitle";
 
+const IP = "https://your-next-page-turner-backend.herokuapp.com/";
+
 const App: React.FC = () => {
   const [books, setBooks] = useState<BookData[]>([]);
   const [recTitle, setRecTitle] = useState<string>("");
@@ -49,7 +51,7 @@ const App: React.FC = () => {
       body: JSON.stringify(mainBody)
     };
 
-    const res = await fetch("http://localhost:5000/books", content);
+    const res = await fetch(IP + "/books", content);
     const books = await res.json();
 
     setBooks([book, ...books]);
@@ -67,7 +69,7 @@ const App: React.FC = () => {
       },
       body: JSON.stringify(mainBody)
     };
-    const res = await fetch("http://localhost:5000/query", content);
+    const res = await fetch(IP + "/query", content);
     const books = await res.json();
     setBooks(books);
   };
@@ -95,7 +97,7 @@ const App: React.FC = () => {
   };
 
   const _fetchPage = async (page: number) => {
-    const res = await fetch("http://localhost:5000/books/" + page);
+    const res = await fetch(IP + "/books/" + page);
     const newBooks = await res.json();
     setBooks([...books, ...newBooks]);
     if (setIsPageLoading) setTimeout(() => setIsPageLoading(false), 500);
