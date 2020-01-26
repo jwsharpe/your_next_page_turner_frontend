@@ -24,7 +24,7 @@ export default function ShowBook(props: Props): ReactElement {
             }}
             className="rec-button"
           >
-            mor like dis pls
+            Get Recommendations!
           </button>
         </aside>
       ) : (

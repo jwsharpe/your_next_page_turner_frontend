@@ -8,8 +8,8 @@ const Header: React.FC = () => {
         <h3>Your Next Page Turner</h3>
       </div>
       <div className="header-actions">
-        <a href="/about">about</a>
-        <a href="/">home</a>
+        <a href="/your-next-page-turner/about">about</a>
+        <a href="/your-next-page-turner/">home</a>
       </div>
     </header>
   );

@@ -20,3 +20,8 @@ Your next page turner is an application that allows users to find recommended bo
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Things to do:
+
+* Auto scroll up to top when a book is recommended.
+* Find visual bugs.
+* Research better UX experience. 
