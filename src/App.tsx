@@ -26,18 +26,20 @@ const App: React.FC = () => {
     if (!localStorage.getItem("first")) {
       console.log(localStorage.getItem("first"));
       alert(
-        "Hi! This app is not finished and in its infancy. There are only 200 books in the production database, so recommendations will be skewed and books you expect to be here will not be! Thanks. -James"
+        "Hi! This app is still in its infancy. There are only 200 books in the production database, so recommendations will be skewed and books you expect to be here will not be! Thanks. -James"
       );
       localStorage.setItem("first", "visited");
     }
+
     if (isAppLoading) {
       setIsAppLoading(false);
-
       _fetchFirstPage();
     }
+
     if (query.length >= 2) {
       _fetchSearchQuery(debouncedQuery);
     }
+
     if (query.length === 0) {
       _clearSearch();
     }
