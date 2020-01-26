@@ -9,7 +9,7 @@ import { useDebounce } from "./helper/importedHooks";
 import SearchBar from "./components/SearchBar";
 import RecTitle from "./components/RecTitle";
 
-const IP = "https://your-next-page-turner-backend.herokuapp.com/";
+const IP = "https://your-next-page-turner-backend.herokuapp.com";
 
 const App: React.FC = () => {
   const [books, setBooks] = useState<BookData[]>([]);
@@ -23,8 +23,16 @@ const App: React.FC = () => {
   const debouncedQuery = useDebounce(query, 200);
 
   useEffect(() => {
+    if (!localStorage.getItem("first")) {
+      console.log(localStorage.getItem("first"));
+      alert(
+        "Hi! This app is not finished and in its infancy. There are only 200 books in the production database, so recommendations will be skewed and books you expect to be here will not be! Thanks. -James"
+      );
+      localStorage.setItem("first", "visited");
+    }
     if (isAppLoading) {
       setIsAppLoading(false);
+
       _fetchFirstPage();
     }
     if (query.length >= 2) {
