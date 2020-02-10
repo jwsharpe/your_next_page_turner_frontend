@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import "../css/Aside.scss";
 import { BookData } from "../typescript/types";
+
 interface Props {
   book: BookData;
   fetchRecsByTitle: any;
