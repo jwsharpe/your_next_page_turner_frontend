@@ -2,10 +2,11 @@
 
 ## Backend can be found [here!](https://github.com/rebecca-hh-rosen/your_next_page_turner_backend)
 
-In order to build this app, download the flask backend and run `flask run` and then open the frontend and run `yarn start`.
+This application has launched with firebase!
+
+At https://your-next-page-turner.web.app/
 
 Demo can be found [here!](https://drive.google.com/open?id=1V4Frow-wnazMeUxAMlwpaVhSh0TljVKi)
-
 
 # Your Next Page Turner
 
